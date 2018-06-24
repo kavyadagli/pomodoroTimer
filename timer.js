@@ -35,5 +35,5 @@ class TimeForm extends React.Component {
 
 ReactDOM.render(
   <TimeForm />,
-  document.getElementById('root')
+  document.getElementById('input')
 );
