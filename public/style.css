@@ -1,6 +1,7 @@
 body {
   background-color: white;
   margin: 0;
+  height: 100%;
 }
 
 #header {
@@ -19,16 +20,31 @@ body {
 }
 
 #root {
-  margin-top: 10%;
-  margin-left: 30%;
-  font-family: 'Helvetica', 'Arial', 'Sans-Serif';
-  font-weight: bold;
+  top: 0px;
+  margin: 0;
+}
+
+.contents {
+  top: 0;
+}
+
+label {
+  font-weight: lighter;
+  font-family: 'Helvetica', 'Arial', 'Sans-serif';
+  font-size: 15px;
+}
+
+.formSpec {
+  font-weight: normal;
+  font-family: 'Helvetica', 'Arial', 'Sans-serif';
+  font-size: 18px;
+  line-height: 25px;
 }
 
 input {
   border: 1px solid #e5e5e5;
   outline: 0;
-  font: normal 20px/100% Verdana, Tahoma, sans-serif;
+  font: lighter 20px/100% 'Helvetica', 'Arial', 'Sans-serif';
   width: 100px;
   height:35px;
   background: #ffffff;
@@ -38,12 +54,12 @@ input {
 input:hover, input:focus {
   background: #c9c9c9;
 }
+
 .submit {
   background: black;
   color: white;
-  padding-left: 10px;
-
 }
+
 .submit:hover{
   cursor: pointer;
   background: #FF5733;
@@ -53,19 +69,18 @@ table {
   position: absolute;
   align-items: center;
   top: 300px;
-  left: 25%;
+  left: 35%;
 }
 
-
-td {
+/* td {
   text-align: center;
   vertical-align: middle;
-  padding: 10px;
-}
+  padding: 4px;
+} */
 
 #descr {
   font-family: 'Helvetica', 'Arial', 'Sans-serif';
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: center;
   font-weight: lighter;
   line-height: 35px;
@@ -76,5 +91,60 @@ td {
 }
 
 .goal {
-  width: 100px;
+  width: 300px;
+}
+
+.enter {
+  padding: 30px;
+}
+
+.goalDisp {
+  font-family: 'Helvetica', 'Arial', 'Sans-serif';
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 35px;
+  font-size: 50px;
+  margin: 70px;
+}
+
+.timer {
+  font-family: 'Times New Roman';
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 35px;
+  font-size: 100px;
+  margin-top: 100px;
+}
+
+form {
+  text-align: center;
+  align-items: center;
+}
+
+.center {
+  left: 50%;
+  margin-top: 20px;
+}
+
+.red {
+  background-color: #E2504C;
+  height: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.green{
+  background-color: #6AB73A;
+  height: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+
+}
+
+.result {
+  height: 100%;
 }
