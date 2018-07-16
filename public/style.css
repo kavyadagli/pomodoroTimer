@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   letter-spacing: 2px;
+  white-space: nowrap;
 }
 
 #root {
@@ -107,6 +108,7 @@ table {
   line-height: 35px;
   font-size: 50px;
   margin: 70px;
+  white-space: nowrap;
 }
 
 .timer {
@@ -147,4 +149,39 @@ form {
 
 .result {
   height: 100%;
+}
+
+.media-controls {
+  background-color: Transparent;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  margin-left: 45%;
+  font-size: 50px;
+  font-style: bold;
+  margin: 0;
+}
+
+.media-controls:hover {
+  color: lightGray;
+}
+
+.error-message {
+  font: bold 20px/100% 'Helvetica', 'Arial', 'Sans-serif';
+  color: red;
+}
+
+.buttons {
+  width: 300px;
+  height: 50px;
+  margin-left: 42%;
+
 }

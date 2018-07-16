@@ -1,5 +1,8 @@
   import React from 'react';
   import ReactDOM from 'react-dom';
+  import '../node_modules/font-awesome/css/font-awesome.min.css';
+  //import classNames from 'classnames';
+  //import styles from './styles.scss';
 
 
   class UserForm extends React.Component {
@@ -19,7 +22,9 @@
         goal: '',
         isPressed: false,
         intervals: -1,
-        maxIntervals: false
+        maxIntervals: false,
+        pausePressed: false,
+        showError: false
       };
 
       this.handleClick = this.handleClick.bind(this);
@@ -27,7 +32,8 @@
       this.handleTime = this.handleTime.bind(this);
       this.handleMin = this.handleMin.bind(this);
       this.handleHours = this.handleHours.bind(this);
-
+      this.handlePause = this.handlePause.bind(this);
+      this.handlefastForward = this.handlefastForward.bind(this);
 
     }
 
@@ -36,7 +42,7 @@
     }
 
     handleHours(event) {
-      this.setState({[event.target.name]: event.target.value*60})
+      this.setState({[event.target.name]: event.target.value*60*60})
     }
 
     handleMin(event) {
@@ -45,21 +51,33 @@
 
 
    handleClick() {
-     this.setState({isPressed: true})
+     const interval = this.state.workPeriod + this.state.breakPeriod;
+     const totalTime = this.state.hours + this.state.minutes;
+
+     interval > totalTime ? this.setState({showError: true, isPressed: false}) : this.setState({showError: false, isPressed: true});
    }
 
    handleChange(event) {
      this.setState({[event.target.name]: event.target.value});
    }
 
+   handlePause() {
+     this.state.pausePressed ? this.setState({pausePressed : false}) : this.setState({pausePressed : true});
+     //alert("pausePressed? " + this.state.pausePressed);
+   }
+
    leadingZero(num) {
      return num < 10 ? "0" + num : num;
+   }
+
+   handlefastForward() {
+     this.state.toggleWork ?  this.setState({toggleBreak: true, toggleWork: false}) : this.setState({toggleBreak: false, toggleWork: true});
    }
 
 
    componentDidMount(){
        setInterval(() => {
-        if (this.state.isPressed == true) {
+        if (this.state.isPressed && this.state.pausePressed == false) {
           const interval = Math.floor(((this.state.hours) + this.state.minutes)/(this.state.work-1 + this.state.breakConst-1));
           //alert(" intervals: " + interval + " Hours: " + this.state.hours + " minutes: " + this.state.minutes + " work: " + this.state.work + " break: " + this.state.breakConst)
 
@@ -77,7 +95,6 @@
 
 
            if (this.state.toggleBreak == true) {
-             alert
               this.setState({breakPeriod: this.state.breakPeriod - 1});
               let count = this.state.breakPeriod;
 
@@ -105,6 +122,7 @@
 
       const isPressed = this.state.isPressed;
       let content;
+      let play;
 
       if (!isPressed){
         content =
@@ -113,6 +131,7 @@
           <div id="descr"><h2>The Pomodoro Technique consists of timed work and rest periods to optomize  <br></br> focus and productivity. Use the timer below to help you accomplish your goals!</h2></div>
 
           <React.Fragment>
+                {this.state.showError && <div className="error-message"> Please increase study time or decrease work period/ break period. </div>}
                 <p className="formSpec">What would you like to accomplish today?</p>
                 <input className="goal" type="text" name="goal" maxlength="140" onChange={this.handleChange}/>
                 <p className="formSpec"> How long will your work periods be?<br></br>(25-30 minutes recommended)</p>
@@ -142,6 +161,14 @@
            <div className="result">
              <p className="goalDisp">Goal: {this.state.goal}</p>
              <h1 className="timer">{this.leadingZero(this.state.minutesCounter)}:{this.leadingZero(this.state.secondsCounter)}</h1>
+              <div className="buttons">
+                 <button className="media-controls" onClick={this.handlePause}>
+                     <p className={this.state.pausePressed ? "fa fa-play" : "fa fa-pause"}></p>
+                 </button>
+                 <button className="media-controls" onClick={this.handlefastForward}>
+                     <p className="fa fa-fast-forward"></p>
+                 </button>
+              </div>
            </div>
         </div>
        }

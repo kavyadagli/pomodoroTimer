@@ -1,14 +1,17 @@
 {
-  "name": "01-hello-world",
+  "name": "01-pomodoro-timer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "ajv": "^6.5.2",
+    "classnames": "^2.2.6",
     "es6-promise": "^4.2.4",
+    "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^1.1.4",
+    "styles": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
