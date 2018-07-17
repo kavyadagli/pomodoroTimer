@@ -50,11 +50,14 @@
     }
 
 
-   handleClick() {
-     const interval = this.state.workPeriod + this.state.breakPeriod;
+   handleClick(e) {
+     e.preventDefault();
+     const interval = this.state.work + this.state.breakConst;
      const totalTime = this.state.hours + this.state.minutes;
 
      interval > totalTime ? this.setState({showError: true, isPressed: false}) : this.setState({showError: false, isPressed: true});
+     alert("interval: " + this.state.work + " totalTime: " + totalTime + " " + (interval > totalTime));
+
    }
 
    handleChange(event) {
@@ -125,6 +128,9 @@
       let play;
 
       if (!isPressed){
+
+        const showError =
+
         content =
 
         <form>
@@ -144,7 +150,7 @@
                 <input type="number" name="minutes" min="1" max="59" onChange={this.handleMin} />
                 <label> minutes </label>
                 <div className="center">
-                <input type="submit" value="Submit" onClick={this.handleClick}/>
+                <input type="button" type="submit" value="Submit" onClick={this.handleClick}/>
               </div>
           </React.Fragment>
         </form>
@@ -154,7 +160,7 @@
 
         if (this.state.maxIntervals) {
           content =
-          <p className="goalDisp"> Time Up! </p>
+          <p className="time-up"> Time Up! </p>
        } else {
          content =
          <div className={this.state.toggleWork == true ? "green" : "red"}>
