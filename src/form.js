@@ -1,6 +1,7 @@
   import React from 'react';
   import ReactDOM from 'react-dom';
   import '../node_modules/font-awesome/css/font-awesome.min.css';
+  import Sound from 'react-sound';
   //import classNames from 'classnames';
   //import styles from './styles.scss';
 
@@ -24,9 +25,15 @@
         intervals: -1,
         maxIntervals: false,
         pausePressed: false,
-        showError: false
+        showError: false,
+        play: false
       };
 
+      this.audio = new Audio('alarm.mp3');
+
+      //this.togglePlay = this.togglePlay.bind(this);
+      //this.play = this.play.bind(this);
+      //this.pause = this.pause.bind(this);
       this.handleClick = this.handleClick.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleTime = this.handleTime.bind(this);
@@ -36,6 +43,7 @@
       this.handlefastForward = this.handlefastForward.bind(this);
 
     }
+
 
     handleTime(event) {
       this.setState({[event.target.name]: event.target.value*60+1})
@@ -52,11 +60,11 @@
 
    handleClick(e) {
      e.preventDefault();
-     const interval = this.state.work + this.state.breakConst;
+     const interval = this.state.work + this.state.breakConst - 2;
      const totalTime = this.state.hours + this.state.minutes;
 
      interval > totalTime ? this.setState({showError: true, isPressed: false}) : this.setState({showError: false, isPressed: true});
-     alert("interval: " + this.state.work + " totalTime: " + totalTime + " " + (interval > totalTime));
+     //alert("interval: " + interval + " totalTime: " + totalTime + " " + (interval > totalTime));
 
    }
 
@@ -80,16 +88,16 @@
 
    componentDidMount(){
        setInterval(() => {
+        this.audio.play();
         if (this.state.isPressed && this.state.pausePressed == false) {
           const interval = Math.floor(((this.state.hours) + this.state.minutes)/(this.state.work-1 + this.state.breakConst-1));
           //alert(" intervals: " + interval + " Hours: " + this.state.hours + " minutes: " + this.state.minutes + " work: " + this.state.work + " break: " + this.state.breakConst)
-
           if (this.state.toggleWork == true) {
-
               this.setState({workPeriod: this.state.workPeriod - 1});
               let count = this.state.workPeriod;
 
               if (this.state.workPeriod >= 0) {
+                 console.log("hiiiii");
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: false, toggleBreak: true, workPeriod: this.state.work});
@@ -102,34 +110,29 @@
               let count = this.state.breakPeriod;
 
               if (this.state.breakPeriod >= 0) {
+                 this.audio.play();
+                 console.log(this.audio.play());
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: true, toggleBreak: false, breakPeriod: this.state.breakConst, intervals: this.state.intervals+1});
                  //alert("Time up? " + this.state.maxIntervals + " Intervals: " + this.state.intervals + " Actual Intervals: " + interval);
-
              }
            }
 
            if (this.state.intervals == interval) {
              this.setState({maxIntervals: true});
            }
-
-
          }
                            }, 1000);
-
    }
 
 
     render () {
-
       const isPressed = this.state.isPressed;
       let content;
       let play;
 
       if (!isPressed){
-
-        const showError =
 
         content =
 
@@ -164,8 +167,7 @@
        } else {
          content =
          <div className={this.state.toggleWork == true ? "green" : "red"}>
-           <div className="result">
-             <p className="goalDisp">Goal: {this.state.goal}</p>
+             <p className="goalDisp">{this.state.goal}</p>
              <h1 className="timer">{this.leadingZero(this.state.minutesCounter)}:{this.leadingZero(this.state.secondsCounter)}</h1>
               <div className="buttons">
                  <button className="media-controls" onClick={this.handlePause}>
@@ -176,7 +178,6 @@
                  </button>
               </div>
            </div>
-        </div>
        }
 
       }
