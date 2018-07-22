@@ -60,6 +60,7 @@
 
    handleClick(e) {
      e.preventDefault();
+     window.scrollTo(0, 0);
      const interval = this.state.work + this.state.breakConst - 2;
      const totalTime = this.state.hours + this.state.minutes;
 
