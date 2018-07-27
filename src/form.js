@@ -102,7 +102,6 @@
               let count = this.state.breakPeriod;
 
               if (this.state.breakPeriod >= 0) {
-                 this.audio.play();
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: true, toggleBreak: false, breakPeriod: this.state.breakConst, intervals: this.state.intervals+1});
@@ -125,19 +124,21 @@
       if (!isPressed){
 
         content =
-
+        
         <form>
-          <div id="descr"><h2>The Pomodoro Technique consists of timed work and rest periods to optomize  <br></br> focus and productivity. Use the timer below to help you accomplish your goals!</h2></div>
+          <h1>Pomodoro Timer</h1>
+
+          <h2>The Pomodoro Technique consists of timed work and rest periods to optomize  <br></br> focus and productivity. Use the timer below to help you accomplish your goals!</h2>
 
           <React.Fragment>
                 {this.state.showError && <div className="error-message"> Please increase study time or decrease work period/ break period. </div>}
-                <p className="formSpec">What would you like to accomplish today?</p>
+                <p>What would you like to accomplish today?</p>
                 <input className="goal" type="text" name="goal" maxlength="140" onChange={this.handleChange}/>
-                <p className="formSpec"> How long will your work periods be?<br></br>(25-30 minutes recommended)</p>
+                <p> How long will your work periods be?<br></br>(25-30 minutes recommended)</p>
                 <input type="number" name="workPeriod" name="work" min="0" max="59" onChange={this.handleTime}/>
                 <p className="formSpec">How long will your break periods be?<br></br>(5-10 minutes recommended)</p>
                 <input type="number" name="breakPeriod" name="breakConst" min="0" max="59" onChange={this.handleTime}/>
-                <p className="formSpec">How long are you planning to study?</p>
+                <p>How long are you planning to study?</p>
                 <input type="number" name="hours" min="1" max="23" onChange={this.handleHours} />
                 <label> hours </label>
                 <input type="number" name="minutes" min="1" max="59" onChange={this.handleMin} />
@@ -153,12 +154,12 @@
 
         if (this.state.maxIntervals) {
           content =
-          <p className="time-up"> Time Up! </p>
+          <p id="time-up"> Time Up! </p>
        } else {
          content =
-         <div className={this.state.toggleWork == true ? "green" : "red"}>
-             <p className="goalDisp">{this.state.goal}</p>
-             <h1 className="timer">{this.leadingZero(this.state.minutesCounter)}:{this.leadingZero(this.state.secondsCounter)}</h1>
+         <div id="timer">
+             <p id="goalDisp">{this.state.goal}</p>
+             <h1 className={this.state.toggleWork == true ? "green" : "red"}>{this.leadingZero(this.state.minutesCounter)}:{this.leadingZero(this.state.secondsCounter)}</h1>
               <div className="buttons">
                  <button className="media-controls" onClick={this.handlePause}>
                      <p className={this.state.pausePressed ? "fa fa-play" : "fa fa-pause"}></p>
