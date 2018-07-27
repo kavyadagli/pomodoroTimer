@@ -2,8 +2,6 @@
   import ReactDOM from 'react-dom';
   import '../node_modules/font-awesome/css/font-awesome.min.css';
   import Sound from 'react-sound';
-  //import classNames from 'classnames';
-  //import styles from './styles.scss';
 
 
   class UserForm extends React.Component {
@@ -29,18 +27,14 @@
         play: false
       };
 
-      this.audio = new Audio('alarm.mp3');
 
-      //this.togglePlay = this.togglePlay.bind(this);
-      //this.play = this.play.bind(this);
-      //this.pause = this.pause.bind(this);
       this.handleClick = this.handleClick.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleTime = this.handleTime.bind(this);
       this.handleMin = this.handleMin.bind(this);
       this.handleHours = this.handleHours.bind(this);
       this.handlePause = this.handlePause.bind(this);
-      this.handlefastForward = this.handlefastForward.bind(this);
+      this.fastForward = this.fastForward.bind(this);
 
     }
 
@@ -65,7 +59,6 @@
      const totalTime = this.state.hours + this.state.minutes;
 
      interval > totalTime ? this.setState({showError: true, isPressed: false}) : this.setState({showError: false, isPressed: true});
-     //alert("interval: " + interval + " totalTime: " + totalTime + " " + (interval > totalTime));
 
    }
 
@@ -75,14 +68,13 @@
 
    handlePause() {
      this.state.pausePressed ? this.setState({pausePressed : false}) : this.setState({pausePressed : true});
-     //alert("pausePressed? " + this.state.pausePressed);
    }
 
    leadingZero(num) {
      return num < 10 ? "0" + num : num;
    }
 
-   handlefastForward() {
+   fastForward() {
      this.state.toggleWork ?  this.setState({toggleBreak: true, toggleWork: false}) : this.setState({toggleBreak: false, toggleWork: true});
    }
 
@@ -92,7 +84,6 @@
         this.audio.play();
         if (this.state.isPressed && this.state.pausePressed == false) {
           const interval = Math.floor(((this.state.hours) + this.state.minutes)/(this.state.work-1 + this.state.breakConst-1));
-          //alert(" intervals: " + interval + " Hours: " + this.state.hours + " minutes: " + this.state.minutes + " work: " + this.state.work + " break: " + this.state.breakConst)
           if (this.state.toggleWork == true) {
               this.setState({workPeriod: this.state.workPeriod - 1});
               let count = this.state.workPeriod;
@@ -116,7 +107,6 @@
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: true, toggleBreak: false, breakPeriod: this.state.breakConst, intervals: this.state.intervals+1});
-                 //alert("Time up? " + this.state.maxIntervals + " Intervals: " + this.state.intervals + " Actual Intervals: " + interval);
              }
            }
 
@@ -174,7 +164,7 @@
                  <button className="media-controls" onClick={this.handlePause}>
                      <p className={this.state.pausePressed ? "fa fa-play" : "fa fa-pause"}></p>
                  </button>
-                 <button className="media-controls" onClick={this.handlefastForward}>
+                 <button className="media-controls" onClick={this.fastForward}>
                      <p className="fa fa-fast-forward"></p>
                  </button>
               </div>
