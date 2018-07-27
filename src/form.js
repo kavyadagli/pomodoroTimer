@@ -39,7 +39,9 @@
     }
 
 
+
     handleTime(event) {
+    //handle for the 
       this.setState({[event.target.name]: event.target.value*60+1})
     }
 
@@ -81,7 +83,6 @@
 
    componentDidMount(){
        setInterval(() => {
-        this.audio.play();
         if (this.state.isPressed && this.state.pausePressed == false) {
           const interval = Math.floor(((this.state.hours) + this.state.minutes)/(this.state.work-1 + this.state.breakConst-1));
           if (this.state.toggleWork == true) {
@@ -89,7 +90,6 @@
               let count = this.state.workPeriod;
 
               if (this.state.workPeriod >= 0) {
-                 console.log("hiiiii");
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: false, toggleBreak: true, workPeriod: this.state.work});
@@ -103,7 +103,6 @@
 
               if (this.state.breakPeriod >= 0) {
                  this.audio.play();
-                 console.log(this.audio.play());
                  this.setState({minutesCounter :  Math.floor(count/60), secondsCounter : Number.parseInt(count%60,10)});
              } else {
                  this.setState({toggleWork: true, toggleBreak: false, breakPeriod: this.state.breakConst, intervals: this.state.intervals+1});
